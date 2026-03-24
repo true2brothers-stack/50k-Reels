@@ -1,29 +1,50 @@
 {
     "832d6f7a-42c3-43f1-a3ce-9a678272f811": {
-        "id": "7666babe-1e9e-42cb-9c56-c91f241f7261",
+        "id": "13409037-6cfd-4e75-a8ee-811dd66bb066",
         "name": "Date",
-        "designId": "dafb521e-e198-4fdc-9c64-84f9aeb646f8",
+        "designId": "913618c0-9a9b-423c-adfb-0e7a10b3ea25",
         "pluginId": "832d6f7a-42c3-43f1-a3ce-9a678272f811",
         "publicData": {}
     },
     "2bd1c688-31c5-443e-ae25-59aa5b6431fb": {
-        "id": "5e8cce00-6f8b-4cf2-a0b7-3b71193a2c70",
+        "id": "e58de1c7-455c-4159-91ea-574d08583c7a",
         "name": "REST API",
-        "designId": "dafb521e-e198-4fdc-9c64-84f9aeb646f8",
+        "designId": "913618c0-9a9b-423c-adfb-0e7a10b3ea25",
         "pluginId": "2bd1c688-31c5-443e-ae25-59aa5b6431fb",
         "publicData": {}
     },
     "75b9e021-a5fe-4ae9-8c6a-f4b3e65f2a24": {
-        "id": "553858cf-4b5e-4830-82cc-37ec9f61e5d9",
+        "id": "93746a25-3a92-4744-9871-c8996d24d02f",
         "name": "Vimeo",
-        "designId": "dafb521e-e198-4fdc-9c64-84f9aeb646f8",
+        "designId": "913618c0-9a9b-423c-adfb-0e7a10b3ea25",
         "pluginId": "75b9e021-a5fe-4ae9-8c6a-f4b3e65f2a24",
         "publicData": {}
     },
+    "1fa0dd68-5069-436c-9a7d-3b54c340f1fa": {
+        "id": "cfd670fd-11b9-4be2-ad1c-5a3ea7b3cc6d",
+        "name": "Supabase Auth",
+        "designId": "913618c0-9a9b-423c-adfb-0e7a10b3ea25",
+        "pluginId": "1fa0dd68-5069-436c-9a7d-3b54c340f1fa",
+        "publicData": {
+            "apiKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN1b25qZHdvbXNsaXRsa2t1bmZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyMTg1MDgsImV4cCI6MjA3NTc5NDUwOH0.TuFlk00EhBBCtHB4y5o_FiRIoMzzw4FQ1409A06V3PA",
+            "projectUrl": "https://suonjdwomslitlkkunfh.supabase.co",
+            "customDomain": "",
+            "environments": {
+                "production": {
+                    "apiKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN1b25qZHdvbXNsaXRsa2t1bmZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyMTg1MDgsImV4cCI6MjA3NTc5NDUwOH0.TuFlk00EhBBCtHB4y5o_FiRIoMzzw4FQ1409A06V3PA",
+                    "branch": null,
+                    "branchSlug": null,
+                    "projectUrl": "https://suonjdwomslitlkkunfh.supabase.co",
+                    "customDomain": "",
+                    "baseProjectRef": "suonjdwomslitlkkunfh"
+                }
+            }
+        }
+    },
     "f9ef41c3-1c53-4857-855b-f2f6a40b7186": {
-        "id": "4e749f24-708e-43e9-bbc5-c6b469b50480",
+        "id": "cc8268bc-9d14-460a-83a9-2df508d1052d",
         "name": "Supabase",
-        "designId": "dafb521e-e198-4fdc-9c64-84f9aeb646f8",
+        "designId": "913618c0-9a9b-423c-adfb-0e7a10b3ea25",
         "pluginId": "f9ef41c3-1c53-4857-855b-f2f6a40b7186",
         "publicData": {
             "apiKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN1b25qZHdvbXNsaXRsa2t1bmZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyMTg1MDgsImV4cCI6MjA3NTc5NDUwOH0.TuFlk00EhBBCtHB4y5o_FiRIoMzzw4FQ1409A06V3PA",
@@ -40,27 +61,6 @@
                 }
             },
             "realtimeTables": {}
-        }
-    },
-    "1fa0dd68-5069-436c-9a7d-3b54c340f1fa": {
-        "id": "dac4047f-4131-4662-a432-c53734ed38f5",
-        "name": "Supabase Auth",
-        "designId": "dafb521e-e198-4fdc-9c64-84f9aeb646f8",
-        "pluginId": "1fa0dd68-5069-436c-9a7d-3b54c340f1fa",
-        "publicData": {
-            "apiKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN1b25qZHdvbXNsaXRsa2t1bmZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyMTg1MDgsImV4cCI6MjA3NTc5NDUwOH0.TuFlk00EhBBCtHB4y5o_FiRIoMzzw4FQ1409A06V3PA",
-            "projectUrl": "https://suonjdwomslitlkkunfh.supabase.co",
-            "customDomain": "",
-            "environments": {
-                "production": {
-                    "apiKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN1b25qZHdvbXNsaXRsa2t1bmZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyMTg1MDgsImV4cCI6MjA3NTc5NDUwOH0.TuFlk00EhBBCtHB4y5o_FiRIoMzzw4FQ1409A06V3PA",
-                    "branch": null,
-                    "branchSlug": null,
-                    "projectUrl": "https://suonjdwomslitlkkunfh.supabase.co",
-                    "customDomain": "",
-                    "baseProjectRef": "suonjdwomslitlkkunfh"
-                }
-            }
         }
     }
 }
