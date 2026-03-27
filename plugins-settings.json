@@ -20,27 +20,6 @@
         "pluginId": "75b9e021-a5fe-4ae9-8c6a-f4b3e65f2a24",
         "publicData": {}
     },
-    "1fa0dd68-5069-436c-9a7d-3b54c340f1fa": {
-        "id": "cfd670fd-11b9-4be2-ad1c-5a3ea7b3cc6d",
-        "name": "Supabase Auth",
-        "designId": "913618c0-9a9b-423c-adfb-0e7a10b3ea25",
-        "pluginId": "1fa0dd68-5069-436c-9a7d-3b54c340f1fa",
-        "publicData": {
-            "apiKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN1b25qZHdvbXNsaXRsa2t1bmZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyMTg1MDgsImV4cCI6MjA3NTc5NDUwOH0.TuFlk00EhBBCtHB4y5o_FiRIoMzzw4FQ1409A06V3PA",
-            "projectUrl": "https://suonjdwomslitlkkunfh.supabase.co",
-            "customDomain": "",
-            "environments": {
-                "production": {
-                    "apiKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN1b25qZHdvbXNsaXRsa2t1bmZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyMTg1MDgsImV4cCI6MjA3NTc5NDUwOH0.TuFlk00EhBBCtHB4y5o_FiRIoMzzw4FQ1409A06V3PA",
-                    "branch": null,
-                    "branchSlug": null,
-                    "projectUrl": "https://suonjdwomslitlkkunfh.supabase.co",
-                    "customDomain": "",
-                    "baseProjectRef": "suonjdwomslitlkkunfh"
-                }
-            }
-        }
-    },
     "f9ef41c3-1c53-4857-855b-f2f6a40b7186": {
         "id": "cc8268bc-9d14-460a-83a9-2df508d1052d",
         "name": "Supabase",
@@ -61,6 +40,27 @@
                 }
             },
             "realtimeTables": {}
+        }
+    },
+    "1fa0dd68-5069-436c-9a7d-3b54c340f1fa": {
+        "id": "cfd670fd-11b9-4be2-ad1c-5a3ea7b3cc6d",
+        "name": "Supabase Auth",
+        "designId": "913618c0-9a9b-423c-adfb-0e7a10b3ea25",
+        "pluginId": "1fa0dd68-5069-436c-9a7d-3b54c340f1fa",
+        "publicData": {
+            "apiKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN1b25qZHdvbXNsaXRsa2t1bmZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyMTg1MDgsImV4cCI6MjA3NTc5NDUwOH0.TuFlk00EhBBCtHB4y5o_FiRIoMzzw4FQ1409A06V3PA",
+            "projectUrl": "https://suonjdwomslitlkkunfh.supabase.co",
+            "customDomain": "",
+            "environments": {
+                "production": {
+                    "apiKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN1b25qZHdvbXNsaXRsa2t1bmZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyMTg1MDgsImV4cCI6MjA3NTc5NDUwOH0.TuFlk00EhBBCtHB4y5o_FiRIoMzzw4FQ1409A06V3PA",
+                    "branch": null,
+                    "branchSlug": null,
+                    "projectUrl": "https://suonjdwomslitlkkunfh.supabase.co",
+                    "customDomain": "",
+                    "baseProjectRef": "suonjdwomslitlkkunfh"
+                }
+            }
         }
     }
 }
