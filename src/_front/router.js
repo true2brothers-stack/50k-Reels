@@ -63,10 +63,11 @@ const registerRoute = (page, lang, forcedPath) => {
             wwLib.$store.dispatch('front/setLang', lang.lang);
 
             //Init plugins
-            await initializePlugins();
+            await initializePlugins(to);
 
             //Check if private page
             if (page.pageUserGroups?.length) {
+                await wwLib.ensurePluginRegistered(wwLib.$store.getters['websiteData/getAuthPlugin']?.id);
                 // cancel navigation if no plugin
                 if (!wwLib.wwAuth.plugin) {
                     return false;

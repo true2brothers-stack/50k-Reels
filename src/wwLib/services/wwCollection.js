@@ -32,6 +32,9 @@ export default {
     async _fetchCollection(id, { limit, offset } = {}) {
         const websiteId = wwLib.$store.getters['websiteData/getDesignInfo'].id;
         const collection = wwLib.$store.getters['data/getCollections'][id];
+        if (collection?.pluginId) {
+            await wwLib.ensurePluginRegistered(collection.pluginId);
+        }
         const plugin = wwLib.$store.getters['websiteData/getPluginById'](collection.pluginId);
 
         limit = limit || parseInt(getValue(collection.limit));
@@ -85,6 +88,9 @@ export default {
         try {
             const currentCollectionInfo = wwLib.$store.getters['data/getCollections'][id];
             if (!currentCollectionInfo) return;
+            if (currentCollectionInfo.pluginId) {
+                await wwLib.ensurePluginRegistered(currentCollectionInfo.pluginId);
+            }
             wwLib.logStore.verbose(`Start fetching collection _wwCollection(${id})`, {
                 workflowContext,
                 type: workflowContext ? 'action' : 'collection',

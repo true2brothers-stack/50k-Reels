@@ -1146,6 +1146,8 @@ export async function executeWorkflowAction(
                         currentAction.pluginId &&
                         wwLib.$store.getters['websiteData/getPluginById'](currentAction.pluginId);
                     if (!plugin) break;
+                    await wwLib.ensurePluginRegistered(plugin.id);
+                    await wwLib.wwPluginHelper.waitPluginsLoaded();
                     const args = getValue(action.args || [], context, { event });
                     logActionInformation('info', `Action ${currentAction.name}`);
                     try {

@@ -19,6 +19,17 @@ const pluginLoaders = {
 };
 /* wwFront:end */
 
+function resolvePluginId(pluginIdentifier) {
+    if (!pluginIdentifier) return null;
+    if (pluginLoaders[pluginIdentifier]) return pluginIdentifier;
+
+    const plugin =
+        wwLib?.$store?.getters?.['websiteData/getPluginById']?.(pluginIdentifier) ||
+        wwLib?.$store?.getters?.['websiteData/getPluginByName']?.(pluginIdentifier);
+
+    return plugin ? `plugin-${plugin.id}` : null;
+}
+
 export default {
     ...services,
      $on(event, fn) {
@@ -36,10 +47,17 @@ export default {
     $off(event, fn) {
         emitter.off(event, fn);
     },
-     front: {},
+    front: {},
     $focus: null,
     env: process.env.NODE_ENV,
     _registeredPluginIds: new Set(),
+    async ensurePluginRegistered(pluginIdentifier) {
+        const pluginId = resolvePluginId(pluginIdentifier);
+        if (!pluginId) return null;
+
+        await this.ensurePluginsRegistered([pluginId]);
+        return pluginId;
+    },
     async ensurePluginsRegistered(pluginIds = Object.keys(pluginLoaders)) {
         /* wwFront:start */
         for (const pluginId of pluginIds) {

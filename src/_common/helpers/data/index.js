@@ -9,13 +9,24 @@ const beforeUnload = () => {
 };
 
 let isPluginsInitialized = false;
-export async function initializePlugins() {
-    if (isPluginsInitialized) return;
-    isPluginsInitialized = true;
-    wwLib.logStore.verbose('Initializing plugins...');
-    await wwLib.ensurePluginsRegistered();
+export async function initializePlugins(toRoute) {
+    const pageId = toRoute?.meta?.pageId || wwLib.$store.getters['websiteData/getPageId'];
+    const page = pageId ? wwLib.$store.getters['websiteData/getPageById'](pageId) : null;
+
+    // Public landing pages should not pay the cost of initializing every plugin up front.
+    const pluginIds = page?.pageUserGroups?.length ? [wwLib.$store.getters['websiteData/getAuthPlugin']?.id] : [];
+    const normalizedPluginIds = pluginIds.filter(Boolean);
+
+    if (!normalizedPluginIds.length) return;
+
+    const cacheKey = normalizedPluginIds.sort().join('|');
+    if (isPluginsInitialized === cacheKey) return;
+    isPluginsInitialized = cacheKey;
+
+    wwLib.logStore.verbose('Initializing route plugins...');
+    await Promise.all(normalizedPluginIds.map(pluginId => wwLib.ensurePluginRegistered(pluginId)));
     await wwLib.wwPluginHelper.initPlugins();
-    wwLib.logStore.verbose('Plugins loaded!');
+    wwLib.logStore.verbose('Route plugins loaded!');
 }
 
 export async function initializeData(toRoute, forceReset = false) {
@@ -29,7 +40,10 @@ export async function initializeData(toRoute, forceReset = false) {
     /*=================================/
     / RESET & INIT                     /
     /=================================*/
-    await wwLib.wwAuth.init();
+    if (toRoute?.meta?.isPrivate) {
+        await wwLib.ensurePluginRegistered(wwLib.$store.getters['websiteData/getAuthPlugin']?.id);
+        await wwLib.wwAuth.init();
+    }
     resetCollections(resetPersistant);
     resetWorkflows();
     wwLib.logStore.verbose('Reset variables...');
