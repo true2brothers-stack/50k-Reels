@@ -1,7 +1,7 @@
 import { createApp, createSSRApp } from 'vue';
-import axios from 'axios';
-import { VueCookieNext } from 'vue-cookie-next';
 import { isEqual, isEmpty, cloneDeep, get, set, merge } from 'lodash-es';
+import lightAxios from '@/helpers/lightAxios';
+import lightCookiePlugin from '@/helpers/lightCookie';
 
  
 /* wwFront:start */
@@ -74,7 +74,10 @@ window._ = {
     set,
     merge,
 };
-window.axios = axios.create({});
+window.axios = lightAxios.create({});
+window.wwAxios = window.axios;
+globalThis.axios = window.axios;
+globalThis.wwAxios = window.axios;
 
  
 const app = createApp(App);
@@ -83,7 +86,7 @@ const init = async function () {
     window.vm = app;
     app.use(pinia);
     app.use(store);
-    app.use(VueCookieNext);
+    app.use(lightCookiePlugin);
     app.use(wwElements);
     app.use(globalServices);
     app.config.unwrapInjectedRef = true;
