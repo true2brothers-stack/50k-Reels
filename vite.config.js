@@ -31,7 +31,7 @@ function deferGtmSnippet(html = '') {
         `<script>
 window.dataLayer=window.dataLayer||[];
 window.dataLayer.push({'gtm.start':Date.now(),event:'gtm.js'});
-(function(){var loaded=false;var interactionEvents=['pointerdown','keydown','touchstart','scroll'];function cleanup(){interactionEvents.forEach(function(eventName){window.removeEventListener(eventName,loadGtm,{passive:true});});}function loadGtm(){if(loaded)return;loaded=true;cleanup();var script=document.createElement('script');script.async=true;script.src='https://www.googletagmanager.com/gtm.js?id=GTM-TK3CKXGX';document.head.appendChild(script);}interactionEvents.forEach(function(eventName){window.addEventListener(eventName,loadGtm,{once:true,passive:true});});window.addEventListener('load',function(){window.setTimeout(loadGtm,4500);},{once:true});})();
+(function(){var loaded=false;var interactionEvents=['pointerdown','keydown','touchstart'];function cleanup(){interactionEvents.forEach(function(eventName){window.removeEventListener(eventName,loadGtm,{passive:true});});}function loadGtm(){if(loaded)return;loaded=true;cleanup();var script=document.createElement('script');script.async=true;script.src='https://www.googletagmanager.com/gtm.js?id=GTM-TK3CKXGX';document.head.appendChild(script);}interactionEvents.forEach(function(eventName){window.addEventListener(eventName,loadGtm,{once:true,passive:true});});window.addEventListener('load',function(){window.setTimeout(loadGtm,10000);},{once:true});})();
 </script>`
     );
 }

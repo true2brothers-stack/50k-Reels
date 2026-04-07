@@ -51,11 +51,13 @@
                         document.head.appendChild(link);
                     });
                 }
-                if ('requestIdleCallback' in window) {
-                    requestIdleCallback(loadDecorativeFonts, { timeout: 2500 });
-                } else {
-                    window.addEventListener('load', loadDecorativeFonts, { once: true });
-                }
+                window.addEventListener(
+                    'load',
+                    function () {
+                        window.setTimeout(loadDecorativeFonts, 2500);
+                    },
+                    { once: true }
+                );
             })();
         </script>
         <style>
