@@ -79,6 +79,22 @@ export default {
     },
 };
 
+async function getPagePayload(url) {
+    const frontWindow = wwLib.getFrontWindow();
+    const preloadedData = frontWindow.__WW_PRELOADED_PAGE_DATA__?.[url];
+    if (preloadedData) {
+        return { data: preloadedData };
+    }
+
+    const preloadedPromise = frontWindow.__WW_PRELOADED_PAGE_DATA_PROMISES__?.[url];
+    if (preloadedPromise) {
+        const data = await preloadedPromise;
+        if (data) return { data };
+    }
+
+    return axios.get(url);
+}
+
 async function fetchData(pageId) {
     if (!pageId) return;
 
@@ -105,7 +121,7 @@ async function fetchData(pageId) {
                 workflows,
                 libraryComponents,
             },
-        } = await axios.get(url);
+        } = await getPagePayload(url);
 
         //data.json contains a different cacheVersion
         //due to a deploy before the navigation
@@ -118,7 +134,7 @@ async function fetchData(pageId) {
 
             const {
                 data: { page: pageIndexData },
-            } = await axios.get(url);
+            } = await getPagePayload(url);
 
             for (const key in pageIndexData) {
                 pageData[key] = pageIndexData[key];

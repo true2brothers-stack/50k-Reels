@@ -14,6 +14,44 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link rel="preload" as="image" href="/images/2_2.webp?_wwcv={{cacheVersion}}" fetchpriority="high" />
+        {{#if preloadPageData}}
+        <script>
+            (function () {
+                var baseHref = '{{baseTag.href}}' || '/';
+                if (baseHref.charAt(baseHref.length - 1) !== '/') baseHref += '/';
+
+                var url =
+                    baseHref +
+                    'data/{{preloadPageData.pageId}}.json?wwlang={{preloadPageData.lang}}&_wwcv={{cacheVersion}}';
+
+                var dataCache = (window.__WW_PRELOADED_PAGE_DATA__ = window.__WW_PRELOADED_PAGE_DATA__ || {});
+                var promiseCache = (window.__WW_PRELOADED_PAGE_DATA_PROMISES__ =
+                    window.__WW_PRELOADED_PAGE_DATA_PROMISES__ || {});
+
+                if (dataCache[url] || promiseCache[url]) return;
+
+                var preload = document.createElement('link');
+                preload.rel = 'preload';
+                preload.as = 'fetch';
+                preload.href = url;
+                preload.crossOrigin = 'anonymous';
+                document.head.appendChild(preload);
+
+                promiseCache[url] = fetch(url, { credentials: 'same-origin' })
+                    .then(function (response) {
+                        return response.ok ? response.json() : null;
+                    })
+                    .then(function (data) {
+                        if (data) dataCache[url] = data;
+                        return data;
+                    })
+                    .catch(function () {
+                        delete promiseCache[url];
+                        return null;
+                    });
+            })();
+        </script>
+        {{/if}}
 
         
         

@@ -12,6 +12,7 @@ const pages = {"bio":{"outputDir":"./bio","lang":"pt","title":"50.000 Reels pack
 const WINDOWS_UNSAFE_SEGMENT = /:(?=[^\\/])/g;
 const SOCIAL_IMAGE_PNG = '/images/luxury_pack_edited.png?_wwcv=6';
 const SOCIAL_IMAGE_WEBP = '/images/luxury_pack_edited.webp?_wwcv=6';
+const HOME_PAGE_ID = 'a26c2e8f-3f5a-4839-ad66-4b54c2b8ecac';
 
 function sanitizeOutputDir(outputDir) {
     return process.platform === 'win32' ? outputDir.replace(WINDOWS_UNSAFE_SEGMENT, '__') : outputDir;
@@ -44,6 +45,9 @@ for (const pageConfig of Object.values(pages)) {
     }
 }
 
+pages.index.preloadPageData = { pageId: HOME_PAGE_ID, lang: '' };
+pages['es/'].preloadPageData = { pageId: HOME_PAGE_ID, lang: 'es' };
+
 function manualChunks(id) {
     if (!id.includes('node_modules')) return;
     if (id.includes('@tiptap') || id.includes('prosemirror') || id.includes('katex')) return 'editor-vendor';
@@ -72,6 +76,7 @@ Object.values(pages).forEach(pageConfig => {
         alternateLinks: pageConfig.alternateLinks,
         cacheVersion: pageConfig.cacheVersion,
         baseTag: pageConfig.baseTag,
+        preloadPageData: pageConfig.preloadPageData,
     });
 
     // Save output html for each page

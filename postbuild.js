@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 
 const collectionPages = {};
 
@@ -32,4 +33,40 @@ for (const collectionName in collectionPages) {
 
     fs.rmSync(`./dist${collectionName}/index.html`);
     fs.rmdirSync(`./dist${collectionName}`);
+}
+
+const distDir = './dist';
+const assetsDir = path.join(distDir, 'assets');
+
+if (fs.existsSync(assetsDir)) {
+    const mainCssFile = fs
+        .readdirSync(assetsDir)
+        .find(fileName => /^main-.*\.css$/.test(fileName));
+
+    if (mainCssFile) {
+        const cssPath = path.join(assetsDir, mainCssFile);
+        const cssSource = fs.readFileSync(cssPath, 'utf8');
+
+        if (cssSource.length <= 5000) {
+            const cssLinkTag = `<link rel="stylesheet" crossorigin href="/assets/${mainCssFile}">`;
+            const cssInlineTag = `<style>${cssSource}</style>`;
+
+            const replaceInHtmlFiles = directory => {
+                for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+                    const filePath = path.join(directory, entry.name);
+                    if (entry.isDirectory()) {
+                        replaceInHtmlFiles(filePath);
+                        continue;
+                    }
+                    if (!entry.isFile() || !entry.name.endsWith('.html')) continue;
+
+                    const html = fs.readFileSync(filePath, 'utf8');
+                    if (!html.includes(cssLinkTag)) continue;
+                    fs.writeFileSync(filePath, html.replace(cssLinkTag, cssInlineTag));
+                }
+            };
+
+            replaceInHtmlFiles(distDir);
+        }
+    }
 }
