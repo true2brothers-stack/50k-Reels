@@ -33,31 +33,6 @@
             <link href="/fonts/Phosphor/font.css?_wwcv=6" rel="stylesheet" />
         </noscript>
         <style>:root{ --ww-default-font-family: 'Inter', sans-serif }</style>
-        <script>
-            (function () {
-                var loaded = false;
-                function loadDecorativeFonts() {
-                    if (loaded) return;
-                    loaded = true;
-                    [
-                        'https://fonts.googleapis.com/css2?family=Luxurious+Roman:wght@400&display=swap',
-                        'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap',
-                    ].forEach(function (href) {
-                        var link = document.createElement('link');
-                        link.rel = 'stylesheet';
-                        link.href = href;
-                        document.head.appendChild(link);
-                    });
-                }
-                window.addEventListener(
-                    'load',
-                    function () {
-                        window.setTimeout(loadDecorativeFonts, 2500);
-                    },
-                    { once: true }
-                );
-            })();
-        </script>
         <style>
 :root {
 --7134adc6-5834-43d3-9765-f9af30e731b0: #a5a08f;
