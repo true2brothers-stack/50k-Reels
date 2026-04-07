@@ -8,7 +8,13 @@
         :class="{ '-link': hasLink && !isEditing }"
     >
         <div class="ww-image-basic-overlay"></div>
-        <img :src="src" :alt="alt" v-bind="{ loading: content.loading || 'lazy' }" />
+        <img
+            :src="src"
+            :alt="alt"
+            :loading="loadingStrategy"
+            :decoding="loadingStrategy === 'eager' ? 'sync' : 'async'"
+            :fetchpriority="loadingStrategy === 'eager' ? 'high' : 'auto'"
+        />
     </component>
 </template>
 
@@ -42,6 +48,9 @@ export default {
         },
         src() {
             return this.isWeWeb ? `${wwLib.wwUtils.getCdnPrefix()}${this.url}` : this.url;
+        },
+        loadingStrategy() {
+            return this.content.loading || 'lazy';
         },
 
         /* STYLE */

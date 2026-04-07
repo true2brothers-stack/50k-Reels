@@ -2,7 +2,7 @@ import { executeCode, getValue } from '@/_common/helpers/code/customCode.js';
 import { executeComponentAction } from '@/_common/use/useActions.js';
 import { detectInfinityLoop } from '@/_common/helpers/code/workflowsCallstack.js';
 import { getComponentLabel } from '@/_common/helpers/component/component.js';
-import { set } from 'lodash';
+import { set } from 'lodash-es';
 import { unref } from 'vue';
 import { useVariablesStore } from '@/pinia/variables.js';
 import { usePopupStore } from '@/pinia/popup';

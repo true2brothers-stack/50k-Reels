@@ -13,6 +13,7 @@ export async function initializePlugins() {
     if (isPluginsInitialized) return;
     isPluginsInitialized = true;
     wwLib.logStore.verbose('Initializing plugins...');
+    await wwLib.ensurePluginsRegistered();
     await wwLib.wwPluginHelper.initPlugins();
     wwLib.logStore.verbose('Plugins loaded!');
 }

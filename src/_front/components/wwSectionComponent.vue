@@ -42,7 +42,7 @@
 </template>
 
 <script>
- import { provide, ref, computed, toRef, reactive, inject, shallowRef, watch } from 'vue';
+ import { provide, ref, computed, toRef, reactive, inject, shallowRef, watch, onMounted, onBeforeUnmount } from 'vue';
 
 import {
     getComponentIcon,
@@ -72,6 +72,8 @@ export default {
     setup(props) {
         const component = shallowRef(null);
         const rootElement = shallowRef(null);
+        const shouldLoadBackgroundMedia = ref(props.index <= 2);
+        let backgroundMediaObserver = null;
         provide('sectionId', props.uid);
         provide('dragZoneId', props.uid);
 
@@ -133,6 +135,45 @@ export default {
         useComponentAdvancedInteractions(state, wwLib.$store.getters['websiteData/getPageId']);
         useComponentActions({ uid: props.uid, type: 'section' }, { configuration, componentRef: component });
 
+        const shouldDeferSectionMedia = computed(() => {
+            return (
+                props.index > 2 &&
+                (Boolean(style.backgroundImage) || Boolean(content['_ww-backgroundVideo'])) &&
+                style.position !== 'fixed' &&
+                style.position !== 'sticky'
+            );
+        });
+
+        onMounted(() => {
+            if (!shouldDeferSectionMedia.value) {
+                shouldLoadBackgroundMedia.value = true;
+                return;
+            }
+
+            if (!('IntersectionObserver' in window) || !rootElement.value) {
+                shouldLoadBackgroundMedia.value = true;
+                return;
+            }
+
+            backgroundMediaObserver = new IntersectionObserver(
+                entries => {
+                    if (entries.some(entry => entry.isIntersecting || entry.intersectionRatio > 0)) {
+                        shouldLoadBackgroundMedia.value = true;
+                        backgroundMediaObserver?.disconnect();
+                        backgroundMediaObserver = null;
+                    }
+                },
+                { rootMargin: '300px 0px' }
+            );
+
+            backgroundMediaObserver.observe(rootElement.value);
+        });
+
+        onBeforeUnmount(() => {
+            backgroundMediaObserver?.disconnect();
+            backgroundMediaObserver = null;
+        });
+
  
         return {
             rootElement,
@@ -146,6 +187,7 @@ export default {
             addInternalState,
             removeInternalState,
             toggleInternalState,
+            shouldLoadBackgroundMedia,
             vueComponentName: getComponentVueComponentName('section', props.uid), // this can never change, as this component is uid keyed and objectbase cannot change
             wwSectionState,
             wwFrontState: inject('wwFrontState'),
@@ -155,6 +197,12 @@ export default {
             }),
             isRendering,
             containerStyle: computed(() => {
+                const backgroundStyle = shouldLoadBackgroundMedia.value
+                    ? style
+                    : {
+                          ...style,
+                          backgroundImage: null,
+                      };
                 let _style = {
                     height: getComponentSize(style.height, 'auto'),
                     aspectRatio: style.aspectRatio,
@@ -185,7 +233,12 @@ export default {
                         style.position !== 'sticky' || !hasValue ? getComponentSize(style.width, undefined) : undefined;
                 }
 
-                _style.background = getBackgroundStyle(style);
+                _style.background = getBackgroundStyle(backgroundStyle);
+
+                if (props.index > 2 && style.position !== 'fixed' && style.position !== 'sticky') {
+                    _style.contentVisibility = 'auto';
+                    _style.containIntrinsicSize = getComponentSize(style.minHeight || style.height, '900px');
+                }
 
                 //CURSOR
                 if ( style.cursor) {
@@ -251,7 +304,11 @@ export default {
             return style;
         },
         backgroundVideo() {
-            if (!inheritFrom(this.configuration, 'ww-background-video') || !this.content['_ww-backgroundVideo'])
+            if (
+                !this.shouldLoadBackgroundMedia ||
+                !inheritFrom(this.configuration, 'ww-background-video') ||
+                !this.content['_ww-backgroundVideo']
+            )
                 return null;
             return {
                 url: this.content['_ww-backgroundVideo'],

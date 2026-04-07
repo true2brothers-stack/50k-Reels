@@ -1,7 +1,7 @@
 import { createApp, createSSRApp } from 'vue';
 import axios from 'axios';
 import { VueCookieNext } from 'vue-cookie-next';
-import { isEqual, isEmpty, cloneDeep, get, set, merge } from 'lodash';
+import { isEqual, isEmpty, cloneDeep, get, set, merge } from 'lodash-es';
 
  
 /* wwFront:start */
@@ -27,26 +27,34 @@ store = storeImport;
 pinia = createPinia();
 window.wwLib = wwLibImport;
 
-if ('serviceWorker' in navigator) {
+function registerServiceWorker() {
+    if (!('serviceWorker' in navigator)) return;
+
     if (window.wwg_disableManifest) {
         navigator.serviceWorker.getRegistrations().then(registrations => {
             for (const registration of registrations) {
                 registration.unregister();
             }
         });
-    } else {
-        const baseTag = window.wwg_designInfo?.baseTag;
-        let href = baseTag?.href || null;
-        if (href) {
-            if (!href.startsWith('/')) href = `/${href}`;
-            if (!href.endsWith('/')) href = `${href}/`;
-        }
-        navigator.serviceWorker
-            .register(`${href ?? '/'}serviceworker.js?_wwcv=${window.wwg_cacheVersion}`)
-            .catch(error => {
-                console.error('Service worker registration failed:', error);
-            });
+        return;
     }
+
+    const baseTag = window.wwg_designInfo?.baseTag;
+    let href = baseTag?.href || null;
+    if (href) {
+        if (!href.startsWith('/')) href = `/${href}`;
+        if (!href.endsWith('/')) href = `${href}/`;
+    }
+
+    navigator.serviceWorker.register(`${href ?? '/'}serviceworker.js?_wwcv=${window.wwg_cacheVersion}`).catch(error => {
+        console.error('Service worker registration failed:', error);
+    });
+}
+
+if ('requestIdleCallback' in window) {
+    requestIdleCallback(registerServiceWorker, { timeout: 4000 });
+} else {
+    window.addEventListener('load', registerServiceWorker, { once: true });
 }
 /* wwFront:end */
  
