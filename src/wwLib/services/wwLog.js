@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
-import { lightCookie } from '@/helpers/lightCookie';
+import { VueCookieNext } from 'vue-cookie-next';
 
 export default {
     isAllowed: false,
     init() {
-        this.isAllowed = process.env.NODE_ENV == 'development' || lightCookie.getCookie('debug');
+        this.isAllowed = process.env.NODE_ENV == 'development' || VueCookieNext.getCookie('debug');
     },
     log(...args) {
         if (this.isAllowed) console.log(...args);
